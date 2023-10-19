@@ -1,0 +1,70 @@
+[0.138s] Invoking command in '/home/iremcagin/ros2_hw1_ws/build/assignment1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/foxy /usr/bin/cmake /home/iremcagin/ros2_hw1_ws/src/assignment1 -DCMAKE_INSTALL_PREFIX=/home/iremcagin/ros2_hw1_ws/install/assignment1
+[0.184s] -- The C compiler identification is GNU 9.4.0
+[0.230s] -- The CXX compiler identification is GNU 9.4.0
+[0.234s] -- Check for working C compiler: /usr/bin/cc
+[0.292s] -- Check for working C compiler: /usr/bin/cc -- works
+[0.293s] -- Detecting C compiler ABI info
+[0.352s] -- Detecting C compiler ABI info - done
+[0.363s] -- Detecting C compile features
+[0.363s] -- Detecting C compile features - done
+[0.365s] -- Check for working CXX compiler: /usr/bin/c++
+[0.438s] -- Check for working CXX compiler: /usr/bin/c++ -- works
+[0.439s] -- Detecting CXX compiler ABI info
+[0.511s] -- Detecting CXX compiler ABI info - done
+[0.522s] -- Detecting CXX compile features
+[0.523s] -- Detecting CXX compile features - done
+[0.525s] -- Found ament_cmake: 0.9.12 (/opt/ros/foxy/share/ament_cmake/cmake)
+[0.548s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") 
+[0.548s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[0.715s] -- Found rclcpp: 2.4.3 (/opt/ros/foxy/share/rclcpp/cmake)
+[0.758s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.764s] -- Found rosidl_adapter: 1.3.1 (/opt/ros/foxy/share/rosidl_adapter/cmake)
+[0.835s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "1.1.1f")  
+[0.861s] -- Found FastRTPS: /opt/ros/foxy/include  
+[0.931s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.982s] -- Found rmw_implementation_cmake: 1.0.4 (/opt/ros/foxy/share/rmw_implementation_cmake/cmake)
+[0.984s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.984s] -- Looking for pthread.h
+[1.047s] -- Looking for pthread.h - found
+[1.047s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[1.109s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+[1.109s] -- Looking for pthread_create in pthreads
+[1.161s] -- Looking for pthread_create in pthreads - not found
+[1.161s] -- Looking for pthread_create in pthread
+[1.221s] -- Looking for pthread_create in pthread - found
+[1.222s] -- Found Threads: TRUE  
+[1.360s] -- Found rclpy: 1.0.13 (/opt/ros/foxy/share/rclpy/cmake)
+[1.431s] -- Configuring done
+[1.433s] -- Generating done
+[1.434s] -- Build files have been written to: /home/iremcagin/ros2_hw1_ws/build/assignment1
+[1.441s] Invoked command in '/home/iremcagin/ros2_hw1_ws/build/assignment1' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/foxy /usr/bin/cmake /home/iremcagin/ros2_hw1_ws/src/assignment1 -DCMAKE_INSTALL_PREFIX=/home/iremcagin/ros2_hw1_ws/install/assignment1
+[1.443s] Invoking command in '/home/iremcagin/ros2_hw1_ws/build/assignment1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/foxy /usr/bin/cmake --build /home/iremcagin/ros2_hw1_ws/build/assignment1 -- -j8 -l8
+[1.478s] Invoked command in '/home/iremcagin/ros2_hw1_ws/build/assignment1' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/foxy /usr/bin/cmake --build /home/iremcagin/ros2_hw1_ws/build/assignment1 -- -j8 -l8
+[1.507s] Invoking command in '/home/iremcagin/ros2_hw1_ws/build/assignment1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/foxy /usr/bin/cmake --install /home/iremcagin/ros2_hw1_ws/build/assignment1
+[1.515s] -- Install configuration: ""
+[1.515s] -- Installing: /home/iremcagin/ros2_hw1_ws/install/assignment1/share/assignment1/environment/pythonpath.sh
+[1.515s] -- Installing: /home/iremcagin/ros2_hw1_ws/install/assignment1/share/assignment1/environment/pythonpath.dsv
+[1.515s] -- Installing: /home/iremcagin/ros2_hw1_ws/install/assignment1/lib/python3.8/site-packages/assignment1
+[1.515s] -- Installing: /home/iremcagin/ros2_hw1_ws/install/assignment1/lib/python3.8/site-packages/assignment1/__init__.py
+[1.541s] Listing '/home/iremcagin/ros2_hw1_ws/install/assignment1/lib/python3.8/site-packages/assignment1'...
+[1.541s] Compiling '/home/iremcagin/ros2_hw1_ws/install/assignment1/lib/python3.8/site-packages/assignment1/__init__.py'...
+[1.544s] -- Installing: /home/iremcagin/ros2_hw1_ws/install/assignment1/lib/assignment1/cleaner.py
+[1.544s] -- Installing: /home/iremcagin/ros2_hw1_ws/install/assignment1/lib/assignment1/tracker.py
+[1.544s] -- Installing: /home/iremcagin/ros2_hw1_ws/install/assignment1/share/assignment1//launch
+[1.544s] -- Installing: /home/iremcagin/ros2_hw1_ws/install/assignment1/share/assignment1//launch/assignment1.launch.py
+[1.545s] -- Installing: /home/iremcagin/ros2_hw1_ws/install/assignment1/share/ament_index/resource_index/package_run_dependencies/assignment1
+[1.545s] -- Installing: /home/iremcagin/ros2_hw1_ws/install/assignment1/share/ament_index/resource_index/parent_prefix_path/assignment1
+[1.545s] -- Installing: /home/iremcagin/ros2_hw1_ws/install/assignment1/share/assignment1/environment/ament_prefix_path.sh
+[1.545s] -- Installing: /home/iremcagin/ros2_hw1_ws/install/assignment1/share/assignment1/environment/ament_prefix_path.dsv
+[1.545s] -- Installing: /home/iremcagin/ros2_hw1_ws/install/assignment1/share/assignment1/environment/path.sh
+[1.545s] -- Installing: /home/iremcagin/ros2_hw1_ws/install/assignment1/share/assignment1/environment/path.dsv
+[1.545s] -- Installing: /home/iremcagin/ros2_hw1_ws/install/assignment1/share/assignment1/local_setup.bash
+[1.545s] -- Installing: /home/iremcagin/ros2_hw1_ws/install/assignment1/share/assignment1/local_setup.sh
+[1.545s] -- Installing: /home/iremcagin/ros2_hw1_ws/install/assignment1/share/assignment1/local_setup.zsh
+[1.545s] -- Installing: /home/iremcagin/ros2_hw1_ws/install/assignment1/share/assignment1/local_setup.dsv
+[1.546s] -- Installing: /home/iremcagin/ros2_hw1_ws/install/assignment1/share/assignment1/package.dsv
+[1.546s] -- Installing: /home/iremcagin/ros2_hw1_ws/install/assignment1/share/ament_index/resource_index/packages/assignment1
+[1.546s] -- Installing: /home/iremcagin/ros2_hw1_ws/install/assignment1/share/assignment1/cmake/assignment1Config.cmake
+[1.546s] -- Installing: /home/iremcagin/ros2_hw1_ws/install/assignment1/share/assignment1/cmake/assignment1Config-version.cmake
+[1.546s] -- Installing: /home/iremcagin/ros2_hw1_ws/install/assignment1/share/assignment1/package.xml
+[1.548s] Invoked command in '/home/iremcagin/ros2_hw1_ws/build/assignment1' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/foxy /usr/bin/cmake --install /home/iremcagin/ros2_hw1_ws/build/assignment1
