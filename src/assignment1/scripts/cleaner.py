@@ -132,6 +132,10 @@ class TurtleCleaner(Node):
         # Setting the initial position
         startPosTheta = math.degrees(self.currentPose.theta)
 
+        # Since turtles theta never becomes 180 degrees, this condition prevents infinite loop
+        if(angle == 180):
+            angle = angle - 1.0
+
         # While current orientation minus starting orientation (to get exact changed degree) is less than angle, turtle rotates according to choosen clock direction. 
         # Rotation is made with publishing the twist msg
         while abs(math.degrees(self.currentPose.theta) - startPosTheta) < angle:
@@ -160,6 +164,7 @@ class TurtleCleaner(Node):
         """
         ########## ADD YOUR CODE HERE ##########
 
+        # -------------------------- ROTATION --------------------------
         # Receive the Pose information
         rclpy.spin_once(self)
 
@@ -171,15 +176,23 @@ class TurtleCleaner(Node):
         # Normalization of rotation angle between -pi and pi
         rotationTheta = math.atan2(math.sin(rotationTheta), math.cos(rotationTheta))
 
-        if rotationTheta > 0:
-            # Counterclockwise rotation
-            self.rotate(math.degrees(rotationTheta), angular_speed, False) 
-        else:
+        if rotationTheta < 0:
             # Clockwise rotation
             self.rotate(-math.degrees(rotationTheta), angular_speed, True)
+        else:
+            # Counterclockwise rotation
+            self.rotate(math.degrees(rotationTheta), angular_speed, False) 
+        
 
-        
-        
+        # -------------------------- MOVEMENT --------------------------
+        # Receive the Pose information
+        rclpy.spin_once(self)
+
+        # Calculate distance between target and current point
+        distance = self.calculateDistance(abs(point[0]),abs(point[1]),self.currentPose.x,self.currentPose.y)
+        self.get_logger().info('distance: %f' % distance)
+        self.move(distance,linear_speed,True)
+
         pass
         ########################################
     
@@ -198,26 +211,9 @@ def main(args=None):
     points =[[7.0, 7.0], [7.0, 4.0], [4.0, 4.0], [4.0, 7.0]]
     turtle_cleaner = TurtleCleaner(points)
 
-    #turtle_cleaner.rotate(135,0.8,False)
-    #turtle_cleaner.go_to_a_goal([-4.0,7.0], 0.8, 1.0)
-    #turtle_cleaner.go_to_a_goal([4.0,4.0], 0.5, 1.0)
-    #turtle_cleaner.move(1,1.0,True)
-    #turtle_cleaner.rotate(270,0.8,False)
-
-    """turtle_cleaner.move(1,1.0,True)
-    turtle_cleaner.rotate(45,0.8,True)
-    turtle_cleaner.move(1,1.0,True)
-    """
-    """
-    turtle_cleaner.move(2, 3.0,True)
-    turtle_cleaner.rotate(90,1.0,True)
-    turtle_cleaner.move(2, 3.0,True)
-    turtle_cleaner.rotate(90,1.0,True)
-    turtle_cleaner.move(2, 3.0,True)
-    turtle_cleaner.rotate(90,1.0,True)
-    turtle_cleaner.rotate(45,1.0,False)
-    """
-
+    #turtle_cleaner.rotate(180,0.5,False)
+    turtle_cleaner.go_to_a_goal([-4.0,7.0], 0.8, 1.0)
+ 
     rclpy.spin(turtle_cleaner)
     rclpy.shutdown()
 
