@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 ########## FILL HERE ##########
-# NAME & SURNAME:
-# STUDENT ID:
+# NAME & SURNAME: İrem Çağın Yurttürk
+# STUDENT ID: 150220765
 ###############################
 
 ########## DO NOT EDIT THESE LIBRARIES ##########
@@ -42,6 +42,10 @@ class TurtleCleaner(Node):
         ########## ADD YOUR CODE HERE ##########
         self.twistMsg = Twist()
         self.currentPose = Pose()
+        self.firstMove = True
+
+        # Start the cleaning path
+        self.cleaningPath(self.area)
 
         pass
         ########################################
@@ -59,11 +63,14 @@ class TurtleCleaner(Node):
 
         # This function gets called when a new Pose message is received
         self.currentPose = msg
-
+        #self.get_logger().info('x: %f' % msg.x)
+        #self.get_logger().info('y: %f' % msg.y)
+	
         pass
         ########################################
 
-
+    
+    # Calculate distance between two points
     def calculateDistance(self,x1, y1, x2, y2):
         distance = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
         return distance
@@ -189,8 +196,7 @@ class TurtleCleaner(Node):
         rclpy.spin_once(self)
 
         # Calculate distance between target and current point
-        distance = self.calculateDistance(abs(point[0]),abs(point[1]),self.currentPose.x,self.currentPose.y)
-        self.get_logger().info('distance: %f' % distance)
+        distance = self.calculateDistance(point[0],point[1],self.currentPose.x,self.currentPose.y)
         self.move(distance,linear_speed,True)
 
         pass
@@ -199,6 +205,107 @@ class TurtleCleaner(Node):
     ########## YOU CAN ADD YOUR FUNCTIONS HERE ##########
    
 
+    def cleaningPath(self, points):
+        linearSpeed = 5.0
+        angularSpeed = 5.0
+
+        # Determine the corners
+        x_min = min(p[0] for p in points)
+        x_max = max(p[0] for p in points)
+        y_min = min(p[1] for p in points)
+        y_max = max(p[1] for p in points)
+
+        slip = 0.05
+        tolerance = 0.5
+        
+
+        self.firstPattern(x_max,x_min,y_max,y_min,slip,tolerance,linearSpeed,angularSpeed)
+        
+        self.secondPattern(x_max,x_min,y_max,y_min,slip,tolerance,linearSpeed,angularSpeed)
+        
+        pass
+
+
+    def firstPattern(self,x_max,x_min,y_max,y_min,slip,tolerance,linearSpeed, angularSpeed):
+        rclpy.spin_once(self)
+        currentX = x_max
+
+        # Pattern : down - left- up - left
+        while(self.firstMove | ((currentX > x_min) & 
+              (self.currentPose.x <= x_max + tolerance)  & 
+              (self.currentPose.x >= x_min - tolerance)  & 
+              (self.currentPose.y <= y_max + tolerance)  & 
+              (self.currentPose.y >= y_min - tolerance))):
+            # Go to first point
+            if(self.firstMove): 
+                self.go_to_a_goal([x_max,y_max], linearSpeed, angularSpeed)
+                self.firstMove = False
+            # Down move
+            self.go_to_a_goal([currentX,y_min], linearSpeed, angularSpeed)
+            # Left move
+            if(currentX - slip > x_min):
+                currentX = currentX - slip
+                self.go_to_a_goal([currentX,y_min], linearSpeed, angularSpeed)
+                # Up move
+                self.go_to_a_goal([currentX,y_max], linearSpeed, angularSpeed)
+                # Left move
+                if(currentX - slip > x_min):
+                    currentX = currentX - slip
+                    self.go_to_a_goal([currentX,y_max], linearSpeed, angularSpeed)
+
+            else: break
+
+            # Receive the Pose information
+            rclpy.spin_once(self)
+
+        self.firstMove = True
+        # Stop the turtle after the loop
+        self.twistMsg.linear.x = 0.0
+        self.twistMsg.angular.z = 0.0
+        self.twist_publisher_.publish(self.twistMsg)
+
+        
+        pass
+
+    def secondPattern(self,x_max,x_min,y_max,y_min,slip,tolerance,linearSpeed, angularSpeed):
+        rclpy.spin_once(self)
+        currentY = y_max
+
+        # Pattern : right - down - left - down
+        while(self.firstMove | ((currentY > y_min) & 
+              (self.currentPose.x <= x_max + tolerance)  & 
+              (self.currentPose.x >= x_min - tolerance)  & 
+              (self.currentPose.y <= y_max + tolerance)  & 
+              (self.currentPose.y >= y_min - tolerance))):
+            # Go to first point
+            if(self.firstMove): 
+                self.go_to_a_goal([x_min,y_max], linearSpeed, angularSpeed)
+                self.firstMove = False
+            # Right move
+            self.go_to_a_goal([x_max,currentY], linearSpeed, angularSpeed)
+            # Down move
+            if(currentY - slip > y_min):
+                currentY = currentY - slip
+                self.go_to_a_goal([x_max,currentY], linearSpeed, angularSpeed)
+                # Left move
+                self.go_to_a_goal([x_min,currentY], linearSpeed, angularSpeed)
+                # Down move
+                if(currentY - slip > y_min):
+                    currentY = currentY - slip
+                    self.go_to_a_goal([x_min,currentY], linearSpeed, angularSpeed)
+                 
+
+            else: break
+
+            # Receive the Pose information
+            rclpy.spin_once(self)
+
+        # Stop the turtle after the loop
+        self.twistMsg.linear.x = 0.0
+        self.twistMsg.angular.z = 0.0
+        self.twist_publisher_.publish(self.twistMsg)
+       
+        pass
 
 
     pass
@@ -211,8 +318,7 @@ def main(args=None):
     points =[[7.0, 7.0], [7.0, 4.0], [4.0, 4.0], [4.0, 7.0]]
     turtle_cleaner = TurtleCleaner(points)
 
-    #turtle_cleaner.rotate(180,0.5,False)
-    turtle_cleaner.go_to_a_goal([-4.0,7.0], 0.8, 1.0)
+    #turtle_cleaner.go_to_a_goal([5.0,5.0], 0.8, 1.0)
  
     rclpy.spin(turtle_cleaner)
     rclpy.shutdown()
