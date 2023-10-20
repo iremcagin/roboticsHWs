@@ -59,9 +59,9 @@ class TurtleTracker(Node):
         # Check if the time limit is reached
         elapsed_time = self.calculate_elapsed_time(self.start_time)
         if elapsed_time < self.time_limit:
-            #self.get_logger().info('Cleaning in progress')
-            #self.get_logger().info('Elapsed time: {:.2f} seconds'.format(elapsed_time))
-            #self.get_logger().info('Percentage of cleaned area: %f' % self.ratio)
+            #self.get_logger().info('Cleaning in progress') -----------
+            #self.get_logger().info('Elapsed time: {:.2f} seconds'.format(elapsed_time))--------------
+            #self.get_logger().info('Percentage of cleaned area: %f' % self.ratio)------------
 
             # Check if the turtle is inside the given area
             if self.is_inside_target_area(self.given_points, msg.x, msg.y):
@@ -79,7 +79,7 @@ class TurtleTracker(Node):
                     self.ratio = self.cleaned_area / self.total_area
         else:
             # If the time limit is reached, stop the turtle and print the result
-            #self.get_logger().info('Time is up. Final percentage of cleaned area is %f' % self.ratio)
+            #self.get_logger().info('Time is up. Final percentage of cleaned area is %f' % self.ratio)------------
             twist_msg = Twist()
             twist_msg.linear.x = 0.0
             twist_msg.angular.z = 0.0
@@ -90,7 +90,7 @@ class TurtleTracker(Node):
                 with open(f'/home/{os.getlogin()}/ros2_ws/src/assignment1/assignment1.txt', 'w') as file:
                     file.write(str(self.ratio))
 
-        #self.get_logger().info('----------------------------------------------------------')
+        #self.get_logger().info('----------------------------------------------------------')------------
 
     def calculate_elapsed_time(self, start_time):
         """
