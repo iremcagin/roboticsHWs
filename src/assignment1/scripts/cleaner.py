@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# SOMETIMES GIVES BETTER RESULTS
+
 ########## FILL HERE ##########
 # NAME & SURNAME: İrem Çağın Yurttürk
 # STUDENT ID: 150220765
@@ -63,8 +65,7 @@ class TurtleCleaner(Node):
 
         # This function gets called when a new Pose message is received
         self.currentPose = msg
-        #self.get_logger().info('x: %f' % msg.x)
-        #self.get_logger().info('y: %f' % msg.y)
+
 	
         pass
         ########################################
@@ -216,7 +217,7 @@ class TurtleCleaner(Node):
         y_max = max(p[1] for p in points)
 
         slip = 0.05
-        tolerance = 0.5
+        tolerance = 0.4
         
 
         self.firstPattern(x_max,x_min,y_max,y_min,slip,tolerance,linearSpeed,angularSpeed)
@@ -279,6 +280,7 @@ class TurtleCleaner(Node):
               (self.currentPose.y >= y_min - tolerance))):
             # Go to first point
             if(self.firstMove): 
+                
                 self.go_to_a_goal([x_min,y_max], linearSpeed, angularSpeed)
                 self.firstMove = False
             # Right move
